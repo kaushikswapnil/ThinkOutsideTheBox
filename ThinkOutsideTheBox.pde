@@ -1,6 +1,8 @@
 int g_NumBoxes = 300;
 float g_AngSpeed = 10.0f;
 
+boolean g_Active = true;
+
 void setup()
 {
    size(1000, 1000, P3D);
@@ -9,6 +11,11 @@ void setup()
 void draw()
 {
   background(color(#0C7EFA));
+  
+  if (!g_Active)
+  {
+    return;
+  }
   
   noFill();
   translate(width/2, height/2, 0);
@@ -25,7 +32,7 @@ void draw()
     float ang = PI/4 + angRange + radians(curTime * g_AngSpeed * (float)(iter+1)/g_NumBoxes);
     
     stroke(lerpColor(color(#ffffff), color(#FFC300), (float)iter/(g_NumBoxes-1)));
-    strokeWeight(map((float)iter/(g_NumBoxes-1), 0.0f, 1.0f, 0.08f, 1.8f));
+    strokeWeight(map((float)iter/(g_NumBoxes-1), 0.0f, 1.0f, 0.08f, 2.2f));
     
     rotateX(ang);
     rotateY(ang);
@@ -36,4 +43,12 @@ void draw()
     box(scale * width * 0.5f);
     popMatrix();
   }
+}
+
+void keyPressed()
+{
+   if (key == ' ')
+   {
+    g_Active = !g_Active; 
+   }
 }
